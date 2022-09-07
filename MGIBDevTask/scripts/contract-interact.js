@@ -15,13 +15,27 @@ const contract = require("../artifacts/contracts/MGIBDevTaskContract.sol/MGIBDev
 const contractAddress = "0x31E5Bdbd48f93DA7F811aAd217e406cad6759B4c";
 const mgDevTaskContract = new web3.eth.Contract(contract.abi, contractAddress);
 
-//data to send
+//unencrypted data to send
 const data = "Manas Gandhi\nmanaspgandhi@gmail.com\nhttps://github.com/ManasGandhi73/IlliniBlockchainDevTask\n Lou Malnatis";
+
+//Eth-crypto
+const EthCrypto = require('eth-crypto');
 
 //send task function
 async function sendTaskIB(_IBContract, sendData) {
+    
+    //first encrypt the data
+    const pubKeyEncrypt = "8c0456ac31fb6f53a15ff1ad5555c71d96760f8119dc9a8a992f02c89ad226e1f0cf81273a8017c8409d210cf4969135bb53ea2be22fd3e2eab093830a5c2ad3"
+    //encrypt with public key
+    const encrypted = await EthCrypto.encryptWithPublicKey(
+        pubKeyEncrypt, // publicKey
+        sendData // message
+    );
+    //cipher
+    const encryptedString = EthCrypto.cipher.stringify(encrypted); //feed this into the event
+    
     const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, 'latest'); // get latest nonce
-    const gasEstimate = await mgDevTaskContract.methods.sendTaskIB(_IBContract, sendData).estimateGas(); // estimate gas
+    const gasEstimate = await mgDevTaskContract.methods.sendTaskIB(_IBContract, encryptedString).estimateGas(); // estimate gas
 
     // Creating transaction
     const tx = {
@@ -29,7 +43,7 @@ async function sendTaskIB(_IBContract, sendData) {
       'to': contractAddress,
       'nonce': nonce,
       'gas': gasEstimate, 
-      'data': mgDevTaskContract.methods.sendTaskIB(_IBContract, sendData).encodeABI()
+      'data': mgDevTaskContract.methods.sendTaskIB(_IBContract, encryptedString).encodeABI()
     };
 
     // Signing transaction
