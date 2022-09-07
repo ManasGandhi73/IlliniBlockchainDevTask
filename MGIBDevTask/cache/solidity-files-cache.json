@@ -1,0 +1,41 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\manas\\Downloads\\Clubs\\IB\\Interview Retry\\MGIBDevTask\\contracts\\MGIBDevTaskContract.sol": {
+      "lastModificationDate": 1662574829026,
+      "contentHash": "883da4592aff33eeb147e07261f2edb6",
+      "sourceName": "contracts/MGIBDevTaskContract.sol",
+      "solcConfig": {
+        "version": "0.8.16",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.16"
+      ],
+      "artifacts": [
+        "IlliniBlockchainDevTaskFa22",
+        "MGIBDevTaskContract"
+      ]
+    }
+  }
+}
